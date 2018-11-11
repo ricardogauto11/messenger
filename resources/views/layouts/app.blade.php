@@ -12,29 +12,30 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+        <b-navbar toggleable type="light" variant="light">
+            <!-- Collapsed Hamburguer -->
+            <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
+            <!-- Branding Image -->
+            <b-navbar-brand href="{{ url('/') }}">
+                {{ config('app.name', 'Laravel') }}
+            </b-navbar-brand>
+            <b-collapse is-nav id="nav_text_collapse">
+                <b-navbar-nav class="ml-auto">
+                    {{-- @guest --}}
+                        <b-nav-item href="{{ route('login') }}">Login</b-nav-item>
+                        <b-nav-item href="{{ route('register') }}">Register</b-nav-item>
+                    {{-- @else --}}
+                        <!-- Navbar dropdowns -->
+                        {{-- {{ Auth::user()->name }} --}}
+                        <b-nav-item-dropdown text="username" right>
+                            <b-dropdown-item href="#">Logout</b-dropdown-item>
+                        </b-nav-item-dropdown>
+                    {{-- @endguest --}}
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -65,8 +66,6 @@
                         @endguest
                     </ul>
                 </div>
-            </div>
-        </nav>
 
         @yield('content')
     </div>
